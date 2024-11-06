@@ -1,0 +1,16 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#map,
+body,
+html {
+  height: 95%;
+}
+
+h1 {
+  text-align: center;
+  background-color:Gray;
+}
+
