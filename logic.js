@@ -1,9 +1,8 @@
-
-
+//Get the path to the file and split it to get the last segment
 let locationSplit= window.location.pathname.split('/');
 let locationEnd = locationSplit[locationSplit.length -1];
 
-
+//If on the Map HTML
 if (locationEnd == 'map.html') {
   // Create a map object.
   let myMap = L.map("map", {
@@ -16,26 +15,28 @@ if (locationEnd == 'map.html') {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(myMap);
 
-
+  //Layer to hold all the markers
   let markerLayer;
-  let data = JsonData;
-  
 
-    createMap(myMap, data, 2017);
+    // Initialize map with 2017 markers
+    createMarkers(myMap, JsonData, 2017);
 
+    //On change for the dropdown box
     d3.selectAll("#selDataset").on("change", getYear);
 
+    //Function called by the dropdown
     function getYear(){
+      //Extract the value of the dropdown selected
       let dropdownMenu = d3.select("#selDataset");
       let dataset = dropdownMenu.property("value");
+      //Clear existing markers
       myMap.removeLayer(markerLayer);
-      createMap(myMap,data,dataset);
+      //Call the create map function to create all the markers for the selected year.
+      createMarkers(myMap,JsonData,dataset);
     }
 
-  
-
-
-  function createMap(map, data, year){
+  //Function which creates all the map markers for a given year
+  function createMarkers(map, data, year){
     let markers = [];
     for (let i = 0;i < data.length; i++){
       if (data[i].Year == year) {
@@ -45,7 +46,8 @@ if (locationEnd == 'map.html') {
     }
     markerLayer = L.layerGroup(markers).addTo(map);
   }
-//Charts HTML
+
+//If on the Charts HTML
 } else if (locationEnd == 'charts.html') {    
     let innerData = JsonData;
 
@@ -54,15 +56,9 @@ if (locationEnd == 'map.html') {
       width: 1200
     };
 
-    let just2017 = [];
-    for (let i = 0; i< innerData.length;i++){
-      if (innerData[i].Year == 2017) {
-        just2017.push(innerData[i]);
-      }
-    }
     //Bar Chart by Month (check for seasonal peaks)
     const countByMonth = innerData.reduce((acc, item) => {
-      // Check if the country is already a key in the accumulator
+      // Check if the month is already a key in the accumulator
       if (acc[item.Month_Sort]) {
         acc[item.Month_Sort] += 1; // Increment the count
       } else {
@@ -83,7 +79,7 @@ if (locationEnd == 'map.html') {
 
     //Pie Chart by Age
     const countByAge = innerData.reduce((acc, item) => {
-      // Check if the country is already a key in the accumulator
+      // Check if the Age Range is already a key in the accumulator
       if (acc[item.Age]) {
         acc[item.Age] += 1; // Increment the count
       } else {
@@ -92,6 +88,7 @@ if (locationEnd == 'map.html') {
       return acc; // Return the accumulator for the next iteration
     }, {});
 
+    //Intitialize dictionary for age grouped by above 25 elements
     let groupedVals = {'Other':0};
 
     Object.keys(countByAge).forEach(element => {
