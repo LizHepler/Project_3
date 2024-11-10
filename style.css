@@ -9,8 +9,30 @@ html {
   height: 95%;
 }
 
-h1 {
+.headerTable {
+  background-color: #ffffcc;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  width: 1500px;
+  padding-right: 625px;
   text-align: center;
-  background-color:Gray;
+}
+
+.homebutton {
+  font-family: "Times New Roman", Times, serif;
+  color: #0000FF;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.homebutton:hover {
+  font-family: "Times New Roman", Times, serif;
+  text-decoration: underline;
+  font-variant: normal;
+  color: #0000FF;
+  text-shadow: 0 0 5px #ffffff;
+  font-size: 26px;
 }
 

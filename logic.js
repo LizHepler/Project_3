@@ -52,8 +52,8 @@ if (locationEnd == 'map.html') {
     let innerData = JsonData;
 
     let layout = {
-      height: 1000,
-      width: 1200
+      height: 550,
+      width: 850
     };
 
     //Bar Chart by Month (check for seasonal peaks)
@@ -74,6 +74,7 @@ if (locationEnd == 'map.html') {
         type: "bar"
       }
     ]
+    
     Plotly.newPlot("bar",dataBar,layout);
 
 
