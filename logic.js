@@ -136,7 +136,7 @@ if (locationEnd == 'map.html') {
     }
 
     var femaleTrace = {
-        x: Object.keys(yearArray),
+        x: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
         y: Object.values(femaleCount),
         type: "line",
         line: {
@@ -146,7 +146,7 @@ if (locationEnd == 'map.html') {
     };
 
     var maleTrace = {
-      x: Object.keys(yearArray),
+      x: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
       y: Object.values(maleCount),
       type: "line",
       line: {
