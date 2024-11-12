@@ -114,17 +114,15 @@ if (locationEnd == 'map.html') {
 
 
     //Line Graph by Gender
-    const yearArray = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
-    const genderLabels = innerData.map(item => item.Year);
-    const genderData = innerData.map(item => item.Patient_Gender);
-    console.log(genderLabels);
-    console.log(genderData);
-
+    let yearArray = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
     let femaleCount = [0, 0, 0, 0, 0, 0, 0, 0];
     let maleCount = [0, 0, 0, 0, 0, 0, 0, 0];
     let nullCount = [0, 0, 0, 0, 0, 0, 0, 0];
+    //Loop through each year to determine maleCount and femaleCount
     for (index = 0; index < yearArray.length; index++) {
+      //Loop through each element in innerData
       for (i = 0; i < innerData.length; i++) {
+        //Count the male and female total calls for each year
         if ((innerData[i].Year) === yearArray[index]) {
           if (innerData[i].Patient_Gender === "Female") {
             femaleCount[index] += 1;
@@ -136,16 +134,28 @@ if (locationEnd == 'map.html') {
         }
       }
     }
-    console.log(femaleCount);
-    console.log(maleCount);
 
-    var dataLine = [
-      {
+    var femaleTrace = {
         x: Object.keys(yearArray),
         y: Object.values(femaleCount),
-        type: "line"
-      }
-    ]
+        type: "line",
+        line: {
+          color: "pink"
+        },
+        name: "Female"
+    };
+
+    var maleTrace = {
+      x: Object.keys(yearArray),
+      y: Object.values(maleCount),
+      type: "line",
+      line: {
+        color: "blue"
+      }, 
+      name: "Male"
+    };
+
+    var dataLine = [femaleTrace, maleTrace];
 
     Plotly.newPlot("line", dataLine, layout);
 
