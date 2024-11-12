@@ -111,6 +111,44 @@ if (locationEnd == 'map.html') {
     ]
     
     Plotly.newPlot("pie", dataPie, layout);
+
+
+    //Line Graph by Gender
+    const yearArray = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+    const genderLabels = innerData.map(item => item.Year);
+    const genderData = innerData.map(item => item.Patient_Gender);
+    console.log(genderLabels);
+    console.log(genderData);
+
+    let femaleCount = [0, 0, 0, 0, 0, 0, 0, 0];
+    let maleCount = [0, 0, 0, 0, 0, 0, 0, 0];
+    let nullCount = [0, 0, 0, 0, 0, 0, 0, 0];
+    for (index = 0; index < yearArray.length; index++) {
+      for (i = 0; i < innerData.length; i++) {
+        if ((innerData[i].Year) === yearArray[index]) {
+          if (innerData[i].Patient_Gender === "Female") {
+            femaleCount[index] += 1;
+          } else if (innerData[i].Patient_Gender === "Male") {
+            maleCount[index] += 1;
+          } else {
+            nullCount[index] += 1;
+          }
+        }
+      }
+    }
+    console.log(femaleCount);
+    console.log(maleCount);
+
+    var dataLine = [
+      {
+        x: Object.keys(yearArray),
+        y: Object.values(femaleCount),
+        type: "line"
+      }
+    ]
+
+    Plotly.newPlot("line", dataLine, layout);
+
   }
 
 
