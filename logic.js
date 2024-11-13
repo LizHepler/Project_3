@@ -2,7 +2,7 @@
 let locationSplit= window.location.pathname.split('/');
 let locationEnd = locationSplit[locationSplit.length -1];
 
-//If on the Map HTML
+//if on the Map HTML
 if (locationEnd == 'map.html') {
   // Create a map object.
   let myMap = L.map("map", {
@@ -18,22 +18,22 @@ if (locationEnd == 'map.html') {
   //Layer to hold all the markers
   let markerLayer;
 
-    // Initialize map with 2017 markers
-    createMarkers(myMap, JsonData, 2017);
+  // Initialize map with 2017 markers
+  createMarkers(myMap, JsonData, 2017);
 
-    //On change for the dropdown box
-    d3.selectAll("#selDataset").on("change", getYear);
+  //On change for the dropdown box
+  d3.selectAll("#selDataset").on("change", getYear);
 
-    //Function called by the dropdown
-    function getYear(){
-      //Extract the value of the dropdown selected
-      let dropdownMenu = d3.select("#selDataset");
-      let dataset = dropdownMenu.property("value");
-      //Clear existing markers
-      myMap.removeLayer(markerLayer);
-      //Call the create map function to create all the markers for the selected year.
-      createMarkers(myMap,JsonData,dataset);
-    }
+  //Function called by the dropdown
+  function getYear(){
+    //Extract the value of the dropdown selected
+    let dropdownMenu = d3.select("#selDataset");
+    let dataset = dropdownMenu.property("value");
+    //Clear existing markers
+    myMap.removeLayer(markerLayer);
+    //Call the create map function to create all the markers for the selected year.
+    createMarkers(myMap,JsonData,dataset);
+  }
 
   //Function which creates all the map markers for a given year
   function createMarkers(map, data, year){
@@ -41,13 +41,13 @@ if (locationEnd == 'map.html') {
     for (let i = 0;i < data.length; i++){
       if (data[i].Year == year) {
         let incident = data[i];
-        markers.push(L.marker({'lat': incident.Y,'lon':incident.X}).bindPopup(`<h2>Date: ${incident.Incident_Date.substring(0,10)}<br>Age: ${incident.Age}<br>Gender: ${incident.Patient_Gender}</h2>`));
+        markers.push(L.marker({'lat': incident.Y,'lon':incident.X}).bindPopup(`<h2>Date: ${incident.Incident_Date.substring(5,10)}/${incident.Incident_Date.substring(0,4)}<br>Age: ${incident.Age}<br>Gender: ${incident.Patient_Gender}</h2>`));
       }
     }
     markerLayer = L.layerGroup(markers).addTo(map);
   }
 
-//If on the Charts HTML
+//if on the Charts HTML
 } else if (locationEnd == 'charts.html') {    
     let innerData = JsonData;
 
