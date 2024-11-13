@@ -67,16 +67,27 @@ if (locationEnd == 'map.html') {
       return acc; // Return the accumulator for the next iteration
     }, {});
 
-    var dataBar = [
-      {
-        x: Object.keys(countByMonth),
-        y: Object.values(countByMonth),
-        type: "bar"
-      }
-    ]
-    
-    Plotly.newPlot("bar",dataBar,layout);
+    let dataBar = [];
 
+    Object.keys(countByMonth).forEach((element) => dataBar.push({label:element.substring(5), y:countByMonth[element]}));
+
+    var chart = new CanvasJS.Chart("bar", {
+      animationEnabled: true,
+      exportEnabled: true,
+      theme: "light1", // "light1", "light2", "dark1", "dark2"
+        axisY: {
+          includeZero: true
+        },
+        axisX: {
+          labelAngle:300
+        },
+      data: [{
+        type: "column", //change type to bar, line, area, pie, etc
+        //indexLabel: "{y}", //Shows y value on all Data Points
+        dataPoints: dataBar
+      }]
+    });
+    chart.render();
 
     //Pie Chart by Age
     const countByAge = innerData.reduce((acc, item) => {
@@ -136,7 +147,7 @@ if (locationEnd == 'map.html') {
     }
 
     var femaleTrace = {
-        x: Object.keys(yearArray),
+        x: yearArray,
         y: Object.values(femaleCount),
         type: "line",
         line: {
@@ -146,7 +157,7 @@ if (locationEnd == 'map.html') {
     };
 
     var maleTrace = {
-      x: Object.keys(yearArray),
+      x: yearArray,
       y: Object.values(maleCount),
       type: "line",
       line: {
